@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import DeckGL from '@deck.gl/react';
-import { PathLayer, IconLayer, GeoJsonLayer } from '@deck.gl/layers';
+import { IconLayer, GeoJsonLayer } from '@deck.gl/layers';
 import { StaticMap } from 'react-map-gl';
 import styled from 'styled-components';
 import media from 'styled-media-query';
@@ -15,13 +15,12 @@ import NewText from './NewText';
 import { journeyTimes } from '../data/journeyTimes';
 import { CITIES } from '../data/cities';
 import { convertKeysToOption } from '../helpers/convertKeysToOption';
-import findExactRoute from '../helpers/findExactRoute';
 import findGeoJsonRoute from '../helpers/find-geojson-route';
 import { allRoutes } from '../data/route-layers';
 import { SydneyPortMacquarie } from '../data/GeoJSON/sydney-portmacquarie';
 import { SydneyParkes } from '../data/GeoJSON/sydney-parkes';
 import { SydneyCanberra } from '../data/GeoJSON/sydney-canberra';
-// import {SydneyCanberra} from '../data/GeoJSON/sydney-canberra';
+import { SydneyBomdaberry } from '../data/GeoJSON/sydney-bomdaberry';
 
 export default function Map() {
   const [fromLocation, setFromLocation] = useState('');
@@ -38,15 +37,12 @@ export default function Map() {
     bearing: 0,
     pitch: 0,
   });
-  const [geoJsonLayer, setGeoJsonLayer] = useState('');
   const [layers, setLayers] = useState({
     northern: SydneyPortMacquarie,
     western: SydneyParkes,
     southernInland: SydneyCanberra,
-    southern: null,
+    southern: SydneyBomdaberry,
   });
-
-  let beforeTime, afterTime;
 
   // GET THE STATION MARKERS
   const NEW_MARKERS = [];
@@ -54,7 +50,7 @@ export default function Map() {
     NEW_MARKERS.push({
       name: key,
       exists: 2214,
-      coordinates: value.coordinates,
+      coordinates: [value.long, value.lat],
       routes: value.routes,
       icon:
         'https://targetresearchgroup.com/wp-content/uploads/2016/04/green-target.png',
@@ -66,17 +62,31 @@ export default function Map() {
   Object.entries(layers).map((v) => {
     const route = v[0];
     const layer = v[1];
+    const route_color = () => {
+      switch (route) {
+        case 'northern':
+          return [101, 147, 245];
+        case 'western':
+          return [244, 128, 35];
+        case 'southernInland':
+          return [50, 168, 82];
+        case 'southern':
+          return [211, 11, 0];
+      }
+    };
 
     if (layer) {
       features_list.push({
         type: 'Feature',
         id: route,
-        properties: { ID: route },
+        properties: { ID: route, color: route_color() },
         geometry: layer,
       });
     }
   });
 
+  // GET THE TRAVEL TIMES
+  let beforeTime, afterTime;
   if (
     fromLocation &&
     toLocation &&
@@ -106,11 +116,10 @@ export default function Map() {
     const { name } = event.object;
 
     if (name === fromLocation) return;
-    else if (fromLocation === '' && toLocation === '') {
-      setFromLocation(name);
-    } else if (toLocation === '') {
-      setToLocation(name);
-    } else {
+
+    if (fromLocation === '' && toLocation === '') setFromLocation(name);
+    else if (toLocation === '') setToLocation(name);
+    else {
       setFromLocation(name);
       setToLocation('');
     }
@@ -119,7 +128,6 @@ export default function Map() {
   const clearForm = () => {
     setFromLocation('');
     setToLocation('');
-    setRouteSelected(allRoutes);
     clearLayers();
   };
 
@@ -128,7 +136,7 @@ export default function Map() {
       northern: SydneyPortMacquarie,
       western: SydneyParkes,
       southernInland: SydneyCanberra,
-      southern: null,
+      southern: SydneyBomdaberry,
     });
   };
 
@@ -146,7 +154,8 @@ export default function Map() {
         setLayers({ western: SydneyParkes });
       if (ROUTES.includes('southern-inland-route'))
         setLayers({ southernInland: SydneyCanberra });
-      // if (ROUTES.includes('southern-route')) setLayers({southern: SydneyBomdaberry})
+      if (ROUTES.includes('southern-route'))
+        setLayers({ southern: SydneyBomdaberry });
     }
   }, [fromLocation]);
 
@@ -154,11 +163,34 @@ export default function Map() {
     if (fromLocation && !toLocation) {
       updateRouteLayer();
     } else if (fromLocation && toLocation) {
-      const exactRoute = findExactRoute(fromLocation, toLocation);
-      setRouteSelected(exactRoute);
+      // set all layers to null
+      clearLayers();
 
-      const geoJsonRoute = findGeoJsonRoute(fromLocation, toLocation);
-      setGeoJsonLayer(geoJsonRoute);
+      const exactRoute = findGeoJsonRoute(fromLocation, toLocation);
+      const fromStations = CITIES[fromLocation].routes;
+      const toStations = CITIES[toLocation].routes;
+
+      if (
+        fromStations.includes('northern-route') &&
+        toStations.includes('northern-route')
+      ) {
+        setLayers({ northern: exactRoute });
+      } else if (
+        fromStations.includes('western-route') &&
+        toStations.includes('western-route')
+      ) {
+        setLayers({ western: exactRoute });
+      } else if (
+        fromStations.includes('southern-inland-route') &&
+        toStations.includes('southern-inland-route')
+      ) {
+        setLayers({ southernInland: exactRoute });
+      } else if (
+        fromStations.includes('southern-route') &&
+        toStations.includes('southern-route')
+      ) {
+        setLayers({ southern: exactRoute });
+      }
     }
   }, [fromLocation, toLocation, updateRouteLayer]);
 
@@ -223,9 +255,10 @@ export default function Map() {
                 stroked: false,
                 extruded: true,
                 lineWidthMinPixels: 7,
-                getLineColor: [50, 168, 82],
+                // getLineColor: (d) => [50, 168, 82],
                 getRadius: 100,
                 getElevation: 30,
+                getLineColor: (d) => d.properties.color,
               }),
               new IconLayer({
                 id: 'icon-layer',

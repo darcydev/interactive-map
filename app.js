@@ -14,14 +14,13 @@ app.use((req, res, next) => {
 });
 
 app.get('/api', (req, res) => {
-  const origin = '-33.87364,151.206913';
-  const destination = '-33.137897,148.17485';
+  const { origin, destination } = req.query;
+
   // const waypoints = `-33.7125,150.3119,-33.4827,150.157,-33.4193,149.5775,-33.2833,149.1`;
   const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${origin}&destination=${destination}&key=${process.env.GOOGLE_DIRECTIONS_API_KEY}`;
 
   fetch(url)
     .then((res) => res.json())
-    // .then((data) => res.send(data.routes[0].overview_polyline.points))
     .then((data) => res.send(data))
     .catch((err) => console.error(err));
 });
