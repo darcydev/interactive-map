@@ -6,9 +6,7 @@ export const fetchPolyline = (originCoords, destinationCoords) => {
     .then((data) => {
       if (data.status === 'OK') {
         const routePolyline = data.routes[0].overview_polyline.points;
-
-        console.log(routePolyline);
-
+        console.log('routePolyline :', routePolyline);
         return routePolyline;
       } else {
         console.error('Route not found');

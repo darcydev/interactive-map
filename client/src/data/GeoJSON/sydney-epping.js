@@ -1,11 +1,3 @@
-import { CITIES } from '../../data/cities';
-import { fetchPolyline } from '../../helpers/fetch-polyline';
-
-/* fetchPolyline(
-  `${CITIES.Sydney.lat},${CITIES.Sydney.long}`,
-  `${CITIES.Epping.lat},${CITIES.Epping.long}`
-); */
-
 export const SydneyEpping = {
   type: 'LineString',
   coordinates: [
