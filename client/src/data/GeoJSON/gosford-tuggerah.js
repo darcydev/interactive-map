@@ -1,15 +1,3 @@
-import { CITIES } from '../../data/cities';
-import { fetchPolyline } from '../../helpers/fetch-polyline';
-
-function getPolyline() {
-  fetchPolyline(
-    `${CITIES.Tuggerah.lat},${CITIES.Tuggerah.long}`,
-    `${CITIES.Gosford.lat},${CITIES.Gosford.long}`
-  );
-}
-
-// getPolyline();
-
 export const GosfordTuggerah = {
   type: 'LineString',
   coordinates: [

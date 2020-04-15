@@ -16,16 +16,15 @@ import { journeyTimes } from '../data/journeyTimes';
 import { CITIES } from '../data/cities';
 import { convertKeysToOption } from '../helpers/convertKeysToOption';
 import findGeoJsonRoute from '../helpers/find-geojson-route';
-import { allRoutes } from '../data/route-layers';
-import { SydneyPortMacquarie } from '../data/GeoJSON/sydney-portmacquarie';
-import { SydneyParkes } from '../data/GeoJSON/sydney-parkes';
-import { SydneyCanberra } from '../data/GeoJSON/sydney-canberra';
-import { SydneyBomdaberry } from '../data/GeoJSON/sydney-bomdaberry';
+
+const SydneyPortMacquarie = findGeoJsonRoute('Sydney', 'Port Macquarie');
+const SydneyParkes = findGeoJsonRoute('Sydney', 'Parkes');
+const SydneyCanberra = findGeoJsonRoute('Sydney', 'Canberra');
+const SydneyBomdaberry = findGeoJsonRoute('Sydney', 'Bomdaberry');
 
 export default function Map() {
   const [fromLocation, setFromLocation] = useState('');
   const [toLocation, setToLocation] = useState('');
-  const [routeSelected, setRouteSelected] = useState(allRoutes);
   const [toolTip, setToolTip] = useState({
     title: '',
     visible: false,
@@ -141,9 +140,8 @@ export default function Map() {
   };
 
   const updateRouteLayer = useCallback(() => {
-    if (fromLocation === 'Sydney') setRouteSelected(allRoutes);
+    if (fromLocation === 'Sydney') clearLayers();
     else {
-      // set all layers to null
       clearLayers();
 
       const ROUTES = CITIES[fromLocation].routes;
@@ -163,7 +161,6 @@ export default function Map() {
     if (fromLocation && !toLocation) {
       updateRouteLayer();
     } else if (fromLocation && toLocation) {
-      // set all layers to null
       clearLayers();
 
       const exactRoute = findGeoJsonRoute(fromLocation, toLocation);

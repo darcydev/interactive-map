@@ -1,178 +1,671 @@
-import { SydneyPortMacquarie } from '../data/GeoJSON/sydney-portmacquarie';
-import { SydneyTaree } from '../data/GeoJSON/sydney-taree';
-import { SydneyNewcastle } from '../data/GeoJSON/sydney-newcastle';
-import { SydneyLakeMacquarie } from '../data/GeoJSON/sydney-lakemacquarie';
-import { SydneyTuggerah } from '../data/GeoJSON/sydney-tuggerah';
-import { SydneyGosford } from '../data/GeoJSON/sydney-gosford';
+// sydney
 import { SydneyEpping } from '../data/GeoJSON/sydney-epping';
-import { SydneyParkes } from '../data/GeoJSON/sydney-parkes';
-import { SydneyCanberra } from '../data/GeoJSON/sydney-canberra';
-import { SydneyGoulburn } from '../data/GeoJSON/sydney-goulburn';
-import { SydneyMittagong } from '../data/GeoJSON/sydney-mittagong';
-import { SydneyBomdaberry } from '../data/GeoJSON/sydney-bomdaberry';
+import { SydneyKatoomba } from '../data/GeoJSON/sydney-katoomba';
+import { SydneyCampbelltown } from '../data/GeoJSON/sydney-campbelltown';
+// import {SydneySutherland}
+// northern
 import { EppingGosford } from '../data/GeoJSON/epping-gosford';
-import { EppingTuggerah } from '../data/GeoJSON/epping-tuggerah';
-import { EppingLakeMacquarie } from '../data/GeoJSON/epping-lakemacquarie';
-import { EppingNewcastle } from '../data/GeoJSON/epping-newcastle';
-import { EppingTaree } from '../data/GeoJSON/epping-taree';
-import { EppingPortMacquarie } from '../data/GeoJSON/epping-portmacquarie';
 import { GosfordTuggerah } from '../data/GeoJSON/gosford-tuggerah';
 import { TuggerahLakeMacquarie } from '../data/GeoJSON/tuggerah-lakemacquarie';
 import { LakeMacquarieNewcastle } from '../data/GeoJSON/lakemacquarie-newcastle';
 import { NewcastleTaree } from '../data/GeoJSON/newcastle-taree';
 import { TareePortMacquarie } from '../data/GeoJSON/taree-portmacquarie';
+// western
+import { KatoombaLithgow } from '../data/GeoJSON/katoomba-lithgow';
+import { LithgowBathurst } from '../data/GeoJSON/lithgow-bathurst';
+import { BathurstOrange } from '../data/GeoJSON/bathurst-orange';
+import { OrangeParkes } from '../data/GeoJSON/orange-parkes';
+// southern inland
+import { CampbelltownMittagong } from '../data/GeoJSON/campbelltown-mittagong';
+import { MittagongGoulburn } from '../data/GeoJSON/mittagong-goulburn';
+import { GoulburnCanberra } from '../data/GeoJSON/goulburn-canberra';
 
 export default function findGeoJsonRoute(fromLocation, toLocation) {
-  if (fromLocation === 'Sydney') {
-    switch (toLocation) {
-      case 'Port Macquarie':
-        return SydneyPortMacquarie;
-      case 'Taree':
-        return SydneyTaree;
-      case 'Newcastle':
-        return SydneyNewcastle;
-      case 'Lake Macquarie':
-        return SydneyLakeMacquarie;
-      case 'Tuggerah':
-        return SydneyTuggerah;
-      case 'Gosford':
-        return SydneyGosford;
-      case 'Epping':
-        return SydneyEpping;
-      case 'Parkes':
-        return SydneyParkes;
-      /*       case 'Orange':
-        return SydneyOrange;
-      case 'Bathurst':
-        return SydneyBathurst;
-      case 'Lithgow':
-        return SydneyLithgow;
-      case 'Katoomba':
-        return SydneyKatoomba; */
-      case 'Canberra':
-        return SydneyCanberra;
-      case 'Goulburn':
-        return SydneyGoulburn;
-      /*       case 'Mittagong':
-        return SydneyMittagong;
-      case 'Campbelltown':
-        return SydneyCampbelltown;
-      case 'Bomdaberry':
-        return SydneyBomdaberry;
-      case 'Kiama':
-        return SydneyKiama;
-      case 'Shellharbour':
-        return SydneyShellharbour;
-      case 'Dapto':
-        return SydneyDapto;
-      case 'Wollongong':
-        return SydneyWollongong;
-      case 'Sutherland':
-        return SydneySutherland; */
-    }
-  } else if (fromLocation === 'Port Macquarie') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyPortMacquarie;
-      case 'Taree':
-        return TareePortMacquarie;
-    }
-  } else if (fromLocation === 'Taree') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyTaree;
-      case 'Port Macquarie':
-        return TareePortMacquarie;
-    }
-  } else if (fromLocation === 'Epping') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyEpping;
-      case 'Gosford':
-        return EppingGosford;
-      case 'Tuggerah':
-        return EppingTuggerah;
-      case 'Lake Macquarie':
-        return EppingLakeMacquarie;
-      case 'Newcastle':
-        return EppingNewcastle;
-      case 'Taree':
-        return EppingTaree;
-      case 'Port Macquarie':
-        return EppingPortMacquarie;
-    }
-  } else if (fromLocation === 'Gosford') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyGosford;
-      case 'Epping':
-        return EppingGosford;
-      case 'Tuggerah':
-        return GosfordTuggerah;
-    }
-  } else if (fromLocation === 'Tuggerah') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyTuggerah;
-      case 'Epping':
-        return null;
-      case 'Gosford':
-        return GosfordTuggerah;
-      case 'Lake Macquarie':
-        return TuggerahLakeMacquarie;
-      case 'Newcastle':
-        return null;
-      case 'Taree':
-        return null;
-      case 'Port Macquarie':
-        return null;
-    }
-  } else if (fromLocation === 'Lake Macquarie') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyLakeMacquarie;
-      case 'Epping':
-        return null;
-      case 'Gosford':
-        return null;
-      case 'Tuggerah':
-        return TuggerahLakeMacquarie;
-      case 'Newcastle':
-        return LakeMacquarieNewcastle;
-      case 'Taree':
-        return null;
-      case 'Port Macquarie':
-        return null;
-    }
-  } else if (fromLocation === 'Newcastle') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyNewcastle;
-      case 'Epping':
-        return null;
-      case 'Gosford':
-        return null;
-      case 'Tuggerah':
-        return null;
-      case 'Lake Macquarie':
-        return LakeMacquarieNewcastle;
-      case 'Taree':
-        return NewcastleTaree;
-      case 'Port Macquarie':
-        return null;
-    }
-  } else if (fromLocation === 'Canberra') {
-    switch (toLocation) {
-      case 'Sydney':
-        return SydneyCanberra;
-      case 'Parkes':
-        return SydneyParkes;
-      case 'Canberra':
-        return SydneyCanberra;
-      case 'Goulburn':
-        return SydneyGoulburn;
-      case 'Mittagong':
-        return SydneyMittagong;
-    }
+  switch (fromLocation) {
+    case 'Sydney':
+      return findSydneyRoute(toLocation);
+    // northern
+    case 'Epping':
+      return findEppingRoute(toLocation);
+    case 'Gosford':
+      return findGosfordRoute(toLocation);
+    case 'Tuggerah':
+      return findTuggerahRoute(toLocation);
+    case 'Lake Macquarie':
+      return findLakeMacquarieRoute(toLocation);
+    case 'Newcastle':
+      return findNewcastleRoute(toLocation);
+    case 'Taree':
+      return findTareeRoute(toLocation);
+    case 'Port Macquarie':
+      return findPortMacquarieRoute(toLocation);
+    // western
+    case 'Katoomba':
+      return findKatoombaRoute(toLocation);
+    case 'Lithgow':
+      return findLithgowRoute(toLocation);
+    case 'Bathurst':
+      return findBathurstRoute(toLocation);
+    case 'Orange':
+      return findOrangeRoute(toLocation);
+    case 'Parkes':
+      return findParkesRoute(toLocation);
+    // southern inland
+    case 'Campbelltown':
+      return findCampbelltownRoute(toLocation);
+    case 'Mittagong':
+      return findMittagongRoute(toLocation);
+    case 'Goulburn':
+      return findGoulburnRoute(toLocation);
+    case 'Canberra':
+      return findCanberraRoute(toLocation);
+    // southern
+    case 'Sutherland':
+      return findSutherlandRoute(toLocation);
+    case 'Wollongong':
+      return findWollongongRoute(toLocation);
+    case 'Dapto':
+      return findDaptoRoute(toLocation);
+    case 'Shellharbour':
+      return findShellharbourRoute(toLocation);
+    case 'Dapto':
+      return findDaptoRoute(toLocation);
+    case 'Bomdaberry':
+      return findBomdaberryRoute(toLocation);
   }
 }
+
+const findSydneyRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Port Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyEpping.coordinates,
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+          ...TareePortMacquarie.coordinates,
+        ],
+      };
+    case 'Taree':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyEpping.coordinates,
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+        ],
+      };
+    case 'Newcastle':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyEpping.coordinates,
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+        ],
+      };
+    case 'Lake Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyEpping.coordinates,
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+        ],
+      };
+    case 'Tuggerah':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyEpping.coordinates,
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+        ],
+      };
+    case 'Gosford':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyEpping.coordinates,
+          ...EppingGosford.coordinates,
+        ],
+      };
+    case 'Epping':
+      return SydneyEpping;
+    case 'Katoomba':
+      return SydneyKatoomba;
+    case 'Lithgow':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyKatoomba.coordinates,
+          ...KatoombaLithgow.coordinates,
+        ],
+      };
+    case 'Bathurst':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyKatoomba.coordinates,
+          ...KatoombaLithgow.coordinates,
+          ...LithgowBathurst.coordinates,
+        ],
+      };
+    case 'Orange':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyKatoomba.coordinates,
+          ...LithgowBathurst.coordinates,
+          ...KatoombaLithgow.coordinates,
+          ...BathurstOrange.coordinates,
+        ],
+      };
+    case 'Parkes':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SydneyKatoomba.coordinates,
+          ...LithgowBathurst.coordinates,
+          ...KatoombaLithgow.coordinates,
+          ...BathurstOrange.coordinates,
+          ...OrangeParkes.coordinates,
+        ],
+      };
+    case 'Campbelltown':
+      return SydneyCampbelltown;
+    case 'Mittagong':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Campbelltown').coordinates,
+          ...CampbelltownMittagong.coordinates,
+        ],
+      };
+    case 'Goulburn':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Mittagong').coordinates,
+          ...MittagongGoulburn.coordinates,
+        ],
+      };
+    case 'Canberra':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Goulburn').coordinates,
+          ...GoulburnCanberra.coordinates,
+        ],
+      };
+    case 'Sutherland':
+      return null;
+    case 'Wollongong':
+      return null;
+    case 'Daptop':
+      return null;
+    case 'Shellharbour':
+      return null;
+    case 'Kiama':
+      return null;
+    case 'Bomdaberry':
+      return null;
+  }
+};
+const findEppingRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return SydneyEpping;
+    case 'Epping':
+      return null;
+    case 'Gosford':
+      return EppingGosford;
+    case 'Tuggerah':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+        ],
+      };
+    case 'Lake Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+        ],
+      };
+    case 'Newcastle':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+        ],
+      };
+    case 'Taree':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+        ],
+      };
+    case 'Port Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...EppingGosford.coordinates,
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+          ...TareePortMacquarie.coordinates,
+        ],
+      };
+  }
+};
+const findGosfordRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Gosford');
+    case 'Epping':
+      return EppingGosford;
+    case 'Gosford':
+      return null;
+    case 'Tuggerah':
+      return GosfordTuggerah;
+    case 'Lake Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+        ],
+      };
+    case 'Newcastle':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+        ],
+      };
+    case 'Taree':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+        ],
+      };
+    case 'Port Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...GosfordTuggerah.coordinates,
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+          ...TareePortMacquarie.coordinates,
+        ],
+      };
+  }
+};
+const findTuggerahRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Tuggerah');
+    case 'Epping':
+      return findEppingRoute('Tuggerah');
+    case 'Gosford':
+      return GosfordTuggerah;
+    case 'Tuggerah':
+      return null;
+    case 'Lake Macquarie':
+      return TuggerahLakeMacquarie;
+    case 'Newcastle':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+        ],
+      };
+    case 'Taree':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+        ],
+      };
+    case 'Port Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...TuggerahLakeMacquarie.coordinates,
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+          ...TareePortMacquarie.coordinates,
+        ],
+      };
+  }
+};
+const findLakeMacquarieRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Lake Macquarie');
+    case 'Epping':
+      return findEppingRoute('Lake Macquarie');
+    case 'Gosford':
+      return findGosfordRoute('Lake Macquarie');
+    case 'Tuggerah':
+      return TuggerahLakeMacquarie;
+    case 'Lake Macquarie':
+      return null;
+    case 'Newcastle':
+      return LakeMacquarieNewcastle;
+    case 'Taree':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+        ],
+      };
+    case 'Port Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...LakeMacquarieNewcastle.coordinates,
+          ...NewcastleTaree.coordinates,
+          ...TareePortMacquarie.coordinates,
+        ],
+      };
+  }
+};
+const findNewcastleRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Newcastle');
+    case 'Epping':
+      return findEppingRoute('Newcastle');
+    case 'Gosford':
+      return findGosfordRoute('Newcastle');
+    case 'Tuggerah':
+      return findTuggerahRoute('Newcastle');
+    case 'Lake Macquarie':
+      return LakeMacquarieNewcastle;
+    case 'Newcastle':
+      return null;
+    case 'Taree':
+      return NewcastleTaree;
+    case 'Port Macquarie':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...NewcastleTaree.coordinates,
+          ...TareePortMacquarie.coordinates,
+        ],
+      };
+  }
+};
+const findTareeRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Taree');
+    case 'Epping':
+      return findEppingRoute('Taree');
+    case 'Gosford':
+      return findGosfordRoute('Taree');
+    case 'Tuggerah':
+      return findTuggerahRoute('Taree');
+    case 'Lake Macquarie':
+      return findLakeMacquarieRoute('Taree');
+    case 'Newcastle':
+      return NewcastleTaree;
+    case 'Taree':
+      return null;
+    case 'Port Macquarie':
+      return TareePortMacquarie;
+  }
+};
+const findPortMacquarieRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Port Macquarie');
+    case 'Epping':
+      return findEppingRoute('Port Macquarie');
+    case 'Gosford':
+      return findGosfordRoute('Port Macquarie');
+    case 'Tuggerah':
+      return findTuggerahRoute('Port Macquarie');
+    case 'Lake Macquarie':
+      return findLakeMacquarieRoute('Port Macquaire');
+    case 'Newcastle':
+      return findNewcastleRoute('Port Macquarie');
+    case 'Taree':
+      return TareePortMacquarie;
+    case 'Port Macquarie':
+      return null;
+  }
+};
+const findKatoombaRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Katoomba');
+    case 'Katoomba':
+      return null;
+    case 'Lithgow':
+      return KatoombaLithgow;
+    case 'Bathurst':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findKatoombaRoute('Lithgow').coordinates,
+          ...LithgowBathurst.coordinates,
+        ],
+      };
+    case 'Orange':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findKatoombaRoute('Bathurst').coordinates,
+          ...BathurstOrange.coordinates,
+        ],
+      };
+    case 'Parkes':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findKatoombaRoute('Orange').coordinates,
+          ...OrangeParkes.coordinates,
+        ],
+      };
+  }
+};
+const findLithgowRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Lithgow');
+    case 'Katoomba':
+      return KatoombaLithgow;
+    case 'Lithgow':
+      return null;
+    case 'Bathurst':
+      return LithgowBathurst;
+    case 'Orange':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findLithgowRoute('Bathurst').coordinates,
+          ...BathurstOrange.coordinates,
+        ],
+      };
+    case 'Parkes':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findKatoombaRoute('Orange').coordinates,
+          ...OrangeParkes.coordinates,
+        ],
+      };
+  }
+};
+const findBathurstRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Bathurst');
+    case 'Katoomba':
+      return findKatoombaRoute('Bathurst');
+    case 'Lithgow':
+      return findLithgowRoute('Bathurst');
+    case 'Bathurst':
+      return null;
+    case 'Orange':
+      return BathurstOrange;
+    case 'Parkes':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findBathurstRoute('Orange').coordinates,
+          ...OrangeParkes.coordinates,
+        ],
+      };
+  }
+};
+const findOrangeRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Orange');
+    case 'Katoomba':
+      return findKatoombaRoute('Orange');
+    case 'Lithgow':
+      return findLithgowRoute('Orange');
+    case 'Bathurst':
+      return findBathurstRoute('Orange');
+    case 'Orange':
+      return null;
+    case 'Parkes':
+      return OrangeParkes;
+  }
+};
+const findParkesRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Parkes');
+    case 'Katoomba':
+      return findKatoombaRoute('Parkes');
+    case 'Lithgow':
+      return findLithgowRoute('Parkes');
+    case 'Bathurst':
+      return findBathurstRoute('Parkes');
+    case 'Orange':
+      return findOrangeRoute('Parkes');
+    case 'Parkes':
+      return null;
+  }
+};
+const findCampbelltownRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return SydneyCampbelltown;
+    case 'Campbelltown':
+      return null;
+    case 'Mittagong':
+      return CampbelltownMittagong;
+    case 'Goulburn':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...CampbelltownMittagong.coordinates,
+          ...MittagongGoulburn.coordinates,
+        ],
+      };
+    case 'Canberra':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...CampbelltownMittagong.coordinates,
+          ...MittagongGoulburn.coordinates,
+          ...GoulburnCanberra.coordinates,
+        ],
+      };
+  }
+};
+const findMittagongRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Mittagong');
+    case 'Campbelltown':
+      return CampbelltownMittagong;
+    case 'Mittagong':
+      return null;
+    case 'Goulburn':
+      return MittagongGoulburn;
+    case 'Canberra':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findMittagongRoute('Goulburn').coordinates,
+          ...GoulburnCanberra.coordinates,
+        ],
+      };
+  }
+};
+const findGoulburnRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Goulburn');
+    case 'Campbelltown':
+      return findCampbelltownRoute('Goulburn');
+    case 'Mittagong':
+      return findMittagongRoute('Goulburn');
+    case 'Goulburn':
+      return null;
+    case 'Canberra':
+      return GoulburnCanberra;
+  }
+};
+const findCanberraRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Canberra');
+    case 'Campbelltown':
+      return findCampbelltownRoute('Canberra');
+    case 'Mittagong':
+      return findMittagongRoute('Canberra');
+    case 'Goulburn':
+      return findGoulburnRoute('Canberra');
+    case 'Canberra':
+      return null;
+  }
+};
+const findSutherlandRoute = (otherLocation) => 10;
+const findWollongongRoute = (otherLocation) => 10;
+const findDaptoRoute = (otherLocation) => 10;
+const findShellharbourRoute = (otherLocation) => 10;
+const findKiamaRoute = (otherLocation) => 10;
+const findBomdaberryRoute = (otherLocation) => 10;

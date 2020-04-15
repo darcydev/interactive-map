@@ -178,7 +178,7 @@ export const journeyTimes = {
     Parkes: [4.3, 1.1],
     Orange: [1.8, 0.8],
     Bathurst: [1.9, 0.8],
-    Ligthow: [0.7, 0.2],
+    Lithgow: [0.7, 0.2],
     Sydney: [1.3, 0.2],
   },
   Sutherland: {

@@ -1,15 +1,3 @@
-import { CITIES } from '../../data/cities';
-import { fetchPolyline } from '../../helpers/fetch-polyline';
-
-function getPolyline() {
-  fetchPolyline(
-    `${CITIES.Newcastle.lat},${CITIES.Newcastle.long}`,
-    `${CITIES['Lake Macquarie'].lat},${CITIES['Lake Macquarie'].long}`
-  );
-}
-
-// getPolyline();
-
 export const LakeMacquarieNewcastle = {
   type: 'LineString',
   coordinates: [

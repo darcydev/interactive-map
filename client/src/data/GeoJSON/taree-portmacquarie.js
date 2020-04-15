@@ -1,15 +1,3 @@
-import { CITIES } from '../../data/cities';
-import { fetchPolyline } from '../../helpers/fetch-polyline';
-
-function getPolyline() {
-  fetchPolyline(
-    `${CITIES.Taree.lat},${CITIES.Taree.long}`,
-    `${CITIES['Port Macquarie'].lat},${CITIES['Port Macquarie'].long}`
-  );
-}
-
-// getPolyline();
-
 export const TareePortMacquarie = {
   type: 'LineString',
   coordinates: [
