@@ -2,7 +2,7 @@
 import { SydneyEpping } from '../data/GeoJSON/sydney-epping';
 import { SydneyKatoomba } from '../data/GeoJSON/sydney-katoomba';
 import { SydneyCampbelltown } from '../data/GeoJSON/sydney-campbelltown';
-// import {SydneySutherland}
+import { SydneySutherland } from '../data/GeoJSON/sydney-sutherland';
 // northern
 import { EppingGosford } from '../data/GeoJSON/epping-gosford';
 import { GosfordTuggerah } from '../data/GeoJSON/gosford-tuggerah';
@@ -19,6 +19,12 @@ import { OrangeParkes } from '../data/GeoJSON/orange-parkes';
 import { CampbelltownMittagong } from '../data/GeoJSON/campbelltown-mittagong';
 import { MittagongGoulburn } from '../data/GeoJSON/mittagong-goulburn';
 import { GoulburnCanberra } from '../data/GeoJSON/goulburn-canberra';
+// southern
+import { SutherlandWollongong } from '../data/GeoJSON/sutherland-wollongong';
+import { WollongongDapto } from '../data/GeoJSON/wollongong-dapto';
+import { DaptoShellharbour } from '../data/GeoJSON/dapto-shellharbour';
+import { ShellharbourKiama } from '../data/GeoJSON/shellharbour-kiama';
+import { KiamaBombaberry } from '../data/GeoJSON/kiama-bomdaberry';
 
 export default function findGeoJsonRoute(fromLocation, toLocation) {
   switch (fromLocation) {
@@ -68,8 +74,8 @@ export default function findGeoJsonRoute(fromLocation, toLocation) {
       return findDaptoRoute(toLocation);
     case 'Shellharbour':
       return findShellharbourRoute(toLocation);
-    case 'Dapto':
-      return findDaptoRoute(toLocation);
+    case 'Kiama':
+      return findKiamaRoute(toLocation);
     case 'Bomdaberry':
       return findBomdaberryRoute(toLocation);
   }
@@ -209,17 +215,47 @@ const findSydneyRoute = (otherLocation) => {
         ],
       };
     case 'Sutherland':
-      return null;
+      return SydneySutherland;
     case 'Wollongong':
-      return null;
-    case 'Daptop':
-      return null;
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Sutherland').coordinates,
+          ...SutherlandWollongong.coordinates,
+        ],
+      };
+    case 'Dapto':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Wollongong').coordinates,
+          ...WollongongDapto.coordinates,
+        ],
+      };
     case 'Shellharbour':
-      return null;
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Dapto').coordinates,
+          ...DaptoShellharbour.coordinates,
+        ],
+      };
     case 'Kiama':
-      return null;
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Shellharbour').coordinates,
+          ...ShellharbourKiama.coordinates,
+        ],
+      };
     case 'Bomdaberry':
-      return null;
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...findSydneyRoute('Kiama').coordinates,
+          ...KiamaBombaberry.coordinates,
+        ],
+      };
   }
 };
 const findEppingRoute = (otherLocation) => {
@@ -663,9 +699,190 @@ const findCanberraRoute = (otherLocation) => {
       return null;
   }
 };
-const findSutherlandRoute = (otherLocation) => 10;
-const findWollongongRoute = (otherLocation) => 10;
-const findDaptoRoute = (otherLocation) => 10;
-const findShellharbourRoute = (otherLocation) => 10;
-const findKiamaRoute = (otherLocation) => 10;
-const findBomdaberryRoute = (otherLocation) => 10;
+const findSutherlandRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return SydneySutherland;
+    case 'Sutherland':
+      return null;
+    case 'Wollongong':
+      return SutherlandWollongong;
+    case 'Dapto':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+        ],
+      };
+    case 'Shellharbour':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+          ...DaptoShellharbour.coordinates,
+        ],
+      };
+    case 'Kiama':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+          ...DaptoShellharbour.coordinates,
+          ...ShellharbourKiama.coordinates,
+        ],
+      };
+    case 'Bomdaberry':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+          ...DaptoShellharbour.coordinates,
+          ...ShellharbourKiama.coordinates,
+          ...KiamaBombaberry.coordinates,
+        ],
+      };
+  }
+};
+const findWollongongRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Wollongong');
+    case 'Sutherland':
+      return null;
+    case 'Wollongong':
+      return SutherlandWollongong;
+    case 'Dapto':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+        ],
+      };
+    case 'Shellharbour':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+          ...DaptoShellharbour.coordinates,
+        ],
+      };
+    case 'Kiama':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+          ...DaptoShellharbour.coordinates,
+          ...ShellharbourKiama.coordinates,
+        ],
+      };
+    case 'Bomdaberry':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...SutherlandWollongong.coordinates,
+          ...WollongongDapto.coordinates,
+          ...DaptoShellharbour.coordinates,
+          ...ShellharbourKiama.coordinates,
+          ...KiamaBombaberry.coordinates,
+        ],
+      };
+  }
+};
+const findDaptoRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Dapto');
+    case 'Sutherland':
+      return findSutherlandRoute('Dapto');
+    case 'Wollongong':
+      return WollongongDapto;
+    case 'Dapto':
+      return null;
+    case 'Shellharbour':
+      return DaptoShellharbour;
+    case 'Kiama':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...DaptoShellharbour.coordinates,
+          ...ShellharbourKiama.coordinates,
+        ],
+      };
+    case 'Bomdaberry':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...DaptoShellharbour.coordinates,
+          ...ShellharbourKiama.coordinates,
+          ...KiamaBombaberry.coordinates,
+        ],
+      };
+  }
+};
+const findShellharbourRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Shellharbour');
+    case 'Sutherland':
+      return findSutherlandRoute('Shellharbour');
+    case 'Wollongong':
+      return findWollongongRoute('Shellharbour');
+    case 'Dapto':
+      return DaptoShellharbour;
+    case 'Shellharbour':
+      return null;
+    case 'Kiama':
+      return ShellharbourKiama;
+    case 'Bomdaberry':
+      return {
+        type: 'LineString',
+        coordinates: [
+          ...ShellharbourKiama.coordinates,
+          ...KiamaBombaberry.coordinates,
+        ],
+      };
+  }
+};
+const findKiamaRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Kiama');
+    case 'Sutherland':
+      return findSutherlandRoute('Kiama');
+    case 'Wollongong':
+      return findWollongongRoute('Kiama');
+    case 'Dapto':
+      return findDaptoRoute('Kiama');
+    case 'Shellharbour':
+      return ShellharbourKiama;
+    case 'Kiama':
+      return null;
+    case 'Bomdaberry':
+      return KiamaBombaberry;
+  }
+};
+const findBomdaberryRoute = (otherLocation) => {
+  switch (otherLocation) {
+    case 'Sydney':
+      return findSydneyRoute('Bomdaberry');
+    case 'Sutherland':
+      return findSutherlandRoute('Bomdaberry');
+    case 'Wollongong':
+      return findWollongongRoute('Bomdaberry');
+    case 'Dapto':
+      return findDaptoRoute('Bomdaberry');
+    case 'Shellharbour':
+      return findShellharbourRoute('Bomdaberry');
+    case 'Kiama':
+      return KiamaBombaberry;
+    case 'Bomdaberry':
+      return null;
+  }
+};

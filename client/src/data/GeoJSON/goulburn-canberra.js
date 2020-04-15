@@ -1,15 +1,3 @@
-import { CITIES } from '../../data/cities';
-import { fetchPolyline } from '../../helpers/fetch-polyline';
-
-function getPolyline() {
-  fetchPolyline(
-    `${CITIES.Goulburn.lat},${CITIES.Goulburn.long}`,
-    `${CITIES.Canberra.lat},${CITIES.Canberra.long}`
-  );
-}
-
-console.log('GoulburnCanberra:' + getPolyline());
-
 export const GoulburnCanberra = {
   type: 'LineString',
   coordinates: [
